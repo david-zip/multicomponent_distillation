@@ -11,7 +11,7 @@ from scipy.optimize import fsolve
 from math import exp as exp
 from math import pow as pow
 
-os.chdir("/Users/davidrinaldi/Documents/github/python/chemeng/Distillation/mccable-thiele/OOP")
+os.chdir("/Users/davidrinaldi/Documents/github/chemeng/Distillation/multicomponent_column/binary")
 
 from properties import compounds
 
@@ -47,8 +47,10 @@ class Feed():
             print("Temperature: %.2f K" % self.feedTemperature)
 
 class Distillation(Feed):
-    """Class representing a ideal binary distillation column, current use is to find
-    feed stage and ideal number of stages"""
+    """
+    Class representing a ideal binary distillation column, current use is to find
+    feed stage and ideal number of stages
+    """
     
     def __init__(self, composition, flowrate, P, topPurity=None, bottomPurity=None, R=0):
         """Defining the properties of the distiallation class"""
@@ -82,7 +84,7 @@ class Distillation(Feed):
         TsatList = []
         for key in self.feedComposition.keys():
             TsatList.append(compounds[key]['Tsat'](self.columnPressure))
-        self.T = np.linspace(min(n for n in TsatList), max(n for n in TsatList))
+        self.T = np.linspace(min(TsatList), max(TsatList))
 
     def print_mole_fraction(self):
         """Prints the mole fraction of the top product/light-key"""

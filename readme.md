@@ -37,4 +37,21 @@ Methods:
 - Find ideal number of plates
 - Find feed stage location
 
-
+## Current Components
+- H2 (hydrogen)
+- CO (carbon monoxide)
+- CO2 (carbon dioxide)
+- CH4 (methane)
+- C2H2 (acetylene)
+- C2H4 (ethylene)
+- C2H6 (ethane)
+- C3H4 (methyl-acetylene)
+- C3H6 (propene)
+- C3H8 (propane)
+- C3H4 (propadiene)
+- C4H6 (E-acetylene)
+- C4H8 (1-butene)
+- C4H10 (n-butane)
+- C5+
+- H2O (steam)
+- N2 (Nitrogen)
