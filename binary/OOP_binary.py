@@ -165,6 +165,8 @@ class Distillation(Feed):
 
         # Getting Feed Line
         Tbub = fsolve(lambda T: x(T) - self.xF, np.mean(self.T))
+        print(np.mean(self.T))
+        print(Tbub)
         yF = y(Tbub[0])
 
         # Plotting equilibrium diagram
