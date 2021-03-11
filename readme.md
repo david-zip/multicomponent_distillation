@@ -12,7 +12,7 @@ Goal is to model a **multicomponent distillation column** using **FUG(K) short c
 Once the following is complete, the model will then be modified so it may show the column height and diameter, and condenser and reboiler duties.
 
 ## Personal Goals
-As I am still learning how to code in an object-orientated style, the following program will be made use OOP.
+As I am still learning how to code in an object-orientated style, the following program will be made using OOP.
 
 ## Logic
 **Main class**: Distillation column
