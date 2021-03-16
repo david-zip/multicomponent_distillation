@@ -9,7 +9,7 @@ import math
 from scipy.optimize import fsolve
 
 from vapor_pressure import constants
-from molecular_weight import mr
+from properties import *
 
 class Distillation():
     """
@@ -57,7 +57,7 @@ class Distillation():
         """
         print("\nFeed flowrate and composition")
         for key, value in self.massFeedComposition.items():
-            print("%s: \t%.2f kg/h\t%.2f" % (key.title(), value, value/sum(n for n in self.massFeedComposition.values())))
+            print("%s: \t %.2f kg/h\t%.2f" % (key.title(), value, value/sum(n for n in self.massFeedComposition.values())))
         print("Total:\t\t%.2f kg/h\t%.2f" % (sum(n for n in self.massFeedComposition.values()), sum(value/sum(n for n in self.massFeedComposition.values()) for value in self.massFeedComposition.values())))
     
     def print_heavy_and_light_keys(self):
@@ -100,9 +100,9 @@ class Distillation():
         print("\nComponent vapour pressures")
         for key, value in self.vapourPressures.items():
             if T < constants[key][5]:
-                print("%s: \t%.2f kPa (Inacurate below T-min)" % (key.title(), value))
+                print("%s: \t%.2f kPa (Inaccurate below T-min)" % (key.title(), value))
             elif T > constants[key][6]:
-                print("%s: \t%.2f kPa (Inacurate above T-max)" % (key.title(), value))
+                print("%s: \t%.2f kPa (Inaccurate above T-max)" % (key.title(), value))
             else:
                 print("%s: \t%.2f kPa" % (key.title(), value))
         
@@ -305,27 +305,45 @@ class Distillation():
         print("Number of rectifying trays: \t%i" % self.Nr)
         print("Number of stripping trays: \t%i" % self.Ns)
         print("Feed tray location: Tray \t%i" % self.idealFeedTray)
+    
+    def actual_trays(self, efficiency):
+        """
+        Finds actual number of trays with user defined tray efficiency
+        """
+        if efficiency > 1:
+            self.trayEfficiency = efficiency/100
+        else:
+            self.trayEfficiency = efficiency
+        
+        self.actualTrays = math.ceil(self.idealPlates/self.trayEfficiency)
+
+        print("\nActual number of trays: %i" % self.actualTrays)
+
+        return self.trayEfficiency, self.actualTrays
+    
+
 
 if __name__ == "__main__":
     components = ["hydrogen", "carbon monoxide", "carbon dioxide", "methane", "acetylene", "ethylene", "ethane", "methyl-acetylene", "propadiene", "propylene", "propane", "ethyl-acetylene", "1-butene", "butane", "pentane", "water", "nitrogen"]
     flowrates = [6657.49, 143.13, 1.43, 51988.75, 1025.00, 126640.40, 54918.75, 503.125, 503.125, 30762.50, 18947.50, 4252.50, 2243.75, 545.67, 15871.25, 124.50, 3.48]
     LiK = "ethane"
-    HeK = "propylene"
+    HeK = "propane"
     P = 34
     T = 273+14
-    q = 0.1
+    q = 0.05
     topRecovery = 0.985
     bottomRecovery = 0.98
 
-    testColumn = Distillation(components, flowrates, LiK, HeK, P, T, q, topRecovery, bottomRecovery)
+    Deethanizer = Distillation(components, flowrates, LiK, HeK, P, T, q, topRecovery, bottomRecovery)
 
-    testColumn.print_feed_flowrates()
-    testColumn.print_heavy_and_light_keys()
-    testColumn.find_vapour_pressure()
-    testColumn.find_relative_volatilty()
-    testColumn.print_distillate_flowrate()
-    testColumn.print_bottom_flowrate()
-    testColumn.find_N_min()
-    testColumn.find_minimum_reflux()
-    testColumn.gilliland_correlation(1.5)
-    testColumn.feed_stage_location()
+    Deethanizer.print_feed_flowrates()
+    Deethanizer.print_heavy_and_light_keys()
+    Deethanizer.find_vapour_pressure()
+    Deethanizer.find_relative_volatilty()
+    Deethanizer.print_distillate_flowrate()
+    Deethanizer.print_bottom_flowrate()
+    Deethanizer.find_N_min()
+    Deethanizer.find_minimum_reflux()
+    Deethanizer.gilliland_correlation(1.5)
+    Deethanizer.feed_stage_location()
+    Deethanizer.actual_trays(0.6)
