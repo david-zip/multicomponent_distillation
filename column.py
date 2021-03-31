@@ -237,7 +237,7 @@ class Distillation():
             if U1_guess > U1 - 0.01 and U1_guess < U1 + 0.01:
                 break
             else:
-                phi += 0.1
+                phi += 0.01
             
         # Second Underwood equation to find minimum reflux ratio
         U2_list = []
@@ -325,14 +325,14 @@ class Distillation():
 
 if __name__ == "__main__":
     components = ["hydrogen", "carbon monoxide", "carbon dioxide", "methane", "acetylene", "ethylene", "ethane", "methyl-acetylene", "propadiene", "propylene", "propane", "ethyl-acetylene", "1-butene", "butane", "pentane", "water", "nitrogen"]
-    flowrates = [6657.49, 143.13, 1.43, 51988.75, 1025.00, 126640.40, 54918.75, 503.125, 503.125, 30762.50, 18947.50, 4252.50, 2243.75, 545.67, 15871.25, 124.50, 3.48]
-    LiK = "ethane"
-    HeK = "propane"
-    P = 34
-    T = 273+14
-    q = 0.05
-    topRecovery = 0.985
-    bottomRecovery = 0.98
+    flowrates = [0, 0, 0, 0, 0, 0, 0, 532, 0, 0, 0, 2097, 2163, 507, 15399, 0, 0]
+    LiK = "ethyl-acetylene"
+    HeK = "pentane"
+    P = 1810
+    T = 273+140
+    q = 0.5
+    topRecovery = 0.95
+    bottomRecovery = 0.9999
 
     Deethanizer = Distillation(components, flowrates, LiK, HeK, P, T, q, topRecovery, bottomRecovery)
 
@@ -344,6 +344,6 @@ if __name__ == "__main__":
     Deethanizer.print_bottom_flowrate()
     Deethanizer.find_N_min()
     Deethanizer.find_minimum_reflux()
-    Deethanizer.gilliland_correlation(1.5)
+    Deethanizer.gilliland_correlation(1.2)
     Deethanizer.feed_stage_location()
-    Deethanizer.actual_trays(0.6)
+    Deethanizer.actual_trays(0.7)
