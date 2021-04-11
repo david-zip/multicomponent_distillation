@@ -324,41 +324,6 @@ class Distillation():
         print("\nActual number of trays: %i" % self.actualTrays)
 
         return self.trayEfficiency, self.actualTrays
-    
-    def min_reflix_graph(self):
-        """
-        Finds the minimum reflux ratio using both Underwoods equations
-
-        This will be the biggest challenge as need to figure out how to use a solver
-        """
-        U1 = 1 - self.q
-
-        # First guess of phi
-        phi = 0
-        U1_guess = None
-
-        # Solver to determine what phi is
-        while True:
-            U1_guess_list = []
-            for key in self.feedMoleComposition.keys():
-                U1a = (self.feedMoleComposition[key]*self.rvHeK[key])/(self.rvHeK[key] - phi)
-                U1_guess_list.append(U1a)
-            
-            U1_guess = sum(U1_guess_list)
-
-            if U1_guess > U1 - 0.01 and U1_guess < U1 + 0.01:
-                break
-            else:
-                phi += 0.01
-            
-        # Second Underwood equation to find minimum reflux ratio
-        U2_list = []
-        for key in self.rvHeK.keys():
-            U2a = (self.rvHeK[key]*self.topMoleFraction[key])/(self.rvHeK[key] - phi)
-            U2_list.append(U2a)
-        
-        self.Rmin = sum(U2_list) - 1
-
 
 if __name__ == "__main__":
     components = ["hydrogen", "carbon monoxide", "carbon dioxide", "methane", "acetylene", "ethylene", "ethane", "methyl-acetylene", "propadiene", "propylene", "propane", "ethyl-acetylene", "1-butene", "butane", "pentane", "water", "nitrogen"]

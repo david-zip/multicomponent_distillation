@@ -1,6 +1,9 @@
 """
 Dictionary storing the the properties of all molecules
 
+In the future, I want to expand the to add a function to calculate the density based on current temperature
+I can find the formula from Perry's 9th edition
+
 Mr (kg/kmol)
 Density (kg/m3)
 
@@ -48,8 +51,16 @@ density = {
     "nitrogen": 28.01
 }
 
-def print_mr(compound):
-    print("%s: \t%.2f kg/kmol" % (compound, mr[compound]))
-
 if __name__ == "__main__":
+    def print_mr(compound):
+        print("\n%s: \t%.2f kg/kmol" % (compound.title(), mr[compound]))
+
+    def print_denisty(compound):
+        print("\n%s: \t%.2f kg/m3" % (compound.title(), density[compound]))
+
     print_mr("hydrogen")
+    print_denisty("hydrogen")
+    print_mr("carbon dioxide")
+    print_denisty("carbon dioxide")
+    print_mr("water")
+    print_denisty("water")

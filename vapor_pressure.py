@@ -7,9 +7,6 @@ P in Pa, T in K
 
 Values found in Perry latest edition (9th edition I think)
 
-Group C3H6 together as I cannot find data for ethyl-acetylene
-C3H6 will be known as propadiene
-
 By David Rinaldi
 10/03/21
 """
