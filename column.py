@@ -217,8 +217,6 @@ class Distillation():
     def find_minimum_reflux(self):
         """
         Finds the minimum reflux ratio using both Underwoods equations
-
-        This will be the biggest challenge as need to figure out how to use a solver
         """
         U1 = 1 - self.q
 
