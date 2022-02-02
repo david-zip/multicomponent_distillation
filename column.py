@@ -1,9 +1,6 @@
 """
 Multicomponent distillation column design using FUG(K) short-cut method
 
-Still want to add additional features such as finding the non-key composition however I would have to figure out how to make a more advanced
-solver than I have made here. I would also like to look into sizing the column however as I require certain equations to make the code.
-
 By David Rinaldi
 10/03/2021
 """
